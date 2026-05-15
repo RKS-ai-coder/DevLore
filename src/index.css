@@ -1,0 +1,137 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #faf9f6;
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: space-around;
+}
+
+
+/* NAV STARTS */
+.primary-nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 60px;
+  padding: 10px 20px;
+  box-shadow: 3px 3px 0px 0px #e0e0e0;
+}
+
+.pages {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 50px;
+  font-size: 18px;
+}
+
+.page {
+  text-decoration: none;
+  color: #3e3e3e;
+  position: relative;
+  display: inline-block; 
+  padding: 5px 0;  
+  border-bottom: 2px solid transparent; 
+  transition: all 0.3s ease;    
+}
+
+.page:hover {
+  border-bottom: 2px solid #4648d4;
+  margin-bottom: 6px;
+}
+
+.page.active {
+  border-bottom: 2px solid #4648d4;
+  margin-bottom: 6px;
+  color: #4648d4;
+}
+
+
+.logo {
+  color: #4648d4;
+}
+
+.settings {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  color: #4e4e4e;
+}
+
+.profile-pic {
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  background-repeat: none;
+  background-size: cover;
+}
+
+.profile-pic:hover {
+  background-color: #4e4e4e;
+}
+/* NAV ENDS */
+
+
+.content {
+  min-height: 100vh;
+}
+
+
+
+/* FOOTER STARTS */
+.footer {
+  background: #e4e4e4;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  padding: 25px 10%;
+  gap: 20px;
+}
+
+.footer-left {
+  flex: 1;               
+  min-width: 250px; 
+}
+
+.footer-left h2 {
+  margin: 0;
+  color: #333;
+}
+
+.tagline {
+  font-size: 0.9rem;
+  color: #666;
+  margin-top: 10px;
+}
+
+.footer-right ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-right a {
+  text-decoration: none;
+  color: #3e3e3e;
+  font-size: 0.9rem;
+  border-bottom: 2px solid transparent; 
+  transition: color 0.3s;
+}
+
+.footer-right a:hover {
+  color: #000;
+  border-bottom: 2px solid #000; 
+}
+/* FOOTER ENDS */
