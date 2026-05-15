@@ -85,7 +85,6 @@ body {
 }
 
 
-
 /* FOOTER STARTS */
 .footer {
   background: #e4e4e4;
@@ -135,3 +134,277 @@ body {
   border-bottom: 2px solid #000; 
 }
 /* FOOTER ENDS */
+
+
+/* QUESTS STARTS */
+.quests-content {
+  margin: 40px auto; 
+  max-width: 1200px; 
+  padding: 0 20px;
+}
+
+.quest-content-header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  color: #1a1a1a;
+}
+
+.quest-content-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 25px;
+}
+
+.quest-content-header p {
+  font-size: 1.2rem;
+  color: #666;
+  max-width: 650px;
+}
+
+.quest-card-container {
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit,200px);
+  grid-auto-rows: 220px;
+  grid-gap: 20px;
+}
+
+.quest-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border-radius: 4px;
+  overflow: hidden;
+  transition: transform 0.2s ease;
+}
+
+.quest-card:hover {
+  transform: translateY(-5px); 
+}
+
+.quest-card img {
+  width: 194px; 
+  height: 136px;
+  object-fit: cover;
+}
+
+.quest-card-content {
+  text-align: center;
+  padding: 10px;
+}
+
+.quest-card-name {
+  font-size: 18px;
+  margin-bottom: 4px;
+}
+
+.quest-card-details {
+  font-size: 14px;
+  padding: 0 10px;
+}
+
+.intensity-container {
+  background: white;
+  border-radius: 16px;
+  padding: 30px;
+  max-width: 650px;
+  margin: 40px auto;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  border: 1px solid #f0f0f0;
+}
+
+.intensity-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.intensity-icon {
+  background: #f3f0ff;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 20px;
+}
+
+.intensity-header-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.intensity-header-content h3 { 
+  margin: 0; 
+  font-size: 20px; 
+}
+
+.intensity-header-content p { 
+  margin: 0; 
+  color: #666; 
+  font-size: 14px; }
+
+.intensity-options {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap; 
+}
+
+.intensity-card {
+  flex: 1;
+  min-width: 120px;
+  padding: 20px;
+  border-radius: 12px;
+  border: 2px solid #f0f0f0;
+  position: relative;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.intensity-card h4 { 
+  margin-bottom: 10px; 
+  font-size: 18px; 
+}
+.intensity-card p { 
+  font-size: 14px; 
+  color: #555; 
+  margin-bottom: 20px; 
+  line-height: 1.4; 
+}
+
+.relaxed { 
+  color: #007d46; 
+}
+.focused { 
+  color: #6d28d9; 
+}
+.elite { 
+  color: #b91c1c; 
+}
+
+.progress-bar {
+  height: 6px;
+  background: #eee;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.relaxed .progress-bar .fill {
+  height: 100%;
+  background: #007d46;
+  border-radius: 10px;
+  width: 30%;
+}
+
+.focused .progress-bar .fill {
+  height: 100%;
+  background: #6d28d9;
+  border-radius: 10px;
+  width: 60%;
+}
+
+.elite .progress-bar .fill {
+  height: 100%;
+  background: #b91c1c;
+  border-radius: 10px;
+  width: 100%;
+}
+
+.quest-summary-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: #732ae9;
+  color: white;
+  border-radius: 16px;
+  padding: 30px;
+  max-width: 250px;
+  margin: 40px auto;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  border: 1px solid #f0f0f0;
+}
+
+.quest-summary-header {
+  font-size: 1.4rem;
+  padding: 10px;
+}
+
+.quest-summary-list {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 10px;
+}
+
+hr {
+  height: 0.1px;
+  width: 250px;
+  background: white;
+}
+
+.begin-quest {
+  margin: 15px 0;
+  padding: 15px;
+  border-radius: 12px;
+  border: none;
+  font-size: 18px;
+  font-weight: bold;
+  color: #732ae9;
+}
+
+.quest-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+/* QUESTS END */
+
+
+/* QUESTPAGE STARTS */
+.quest-game-container {
+  max-width: 800px;
+  margin: 50px auto;
+  padding: 20px;
+  text-align: center;
+}
+
+.question-box {
+  background: white;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  margin-top: 20px;
+}
+
+.options-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* 2 columns for answers */
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.option-btn {
+  padding: 15px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  background: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.option-btn:hover {
+  border-color: #4648d4;
+  background: #f8f9ff;
+}
+
+.results-card {
+  text-align: center;
+  padding: 50px;
+}
+
+
+
+

@@ -2,7 +2,7 @@ import React from "react";
 import Nav from "./components/Nav";
 import Footer from "./components/Footer";
 
-const Home = () => {
+const Leaderboard = () => {
   return (
     <>
       <Nav />
@@ -12,4 +12,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Leaderboard;

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import catImage from '../assets/cat.jpg';
 
-function Nav1() {
+function Nav() {
 
   const location = useLocation();
 
@@ -15,25 +15,22 @@ function Nav1() {
         <li>
           <Link 
             to="/" 
-            className={`page ${location.pathname === "/" ? "active" : ""}`} 
-            onClick={() => setActivePage("/")}>
+            className={`page ${location.pathname === "/" ? "active" : ""}`} >
             Home
           </Link>
         </li>
         <li>
           <Link 
-            to="/dashboard" 
-            className={`page ${location.pathname === "/dashboard" ? "active" : ""}`} 
-            onClick={() => setActivePage("/dashboard")}>
-            Dashboard
+            to="/quests" 
+            className={`page ${location.pathname === "/quests" ? "active" : ""}`} >
+            Quests
           </Link>
         </li>
         <li>
           <Link 
-            to="/quizsetup" 
-            className={`page ${location.pathname === "/quizsetup" ? "active" : ""}`} 
-            onClick={() => setActivePage("/quizsetup")}>
-            Quiz Setup
+            to="/leaderboard" 
+            className={`page ${location.pathname === "/leaderboard" ? "active" : ""}`} >
+            Leaderboard
           </Link>
         </li>
       </ul>
@@ -45,4 +42,4 @@ function Nav1() {
   );
 }
 
-export default Nav1;
+export default Nav;

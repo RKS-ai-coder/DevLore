@@ -1,8 +1,8 @@
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import Home from "./Home.jsx"
-import Dashboard from "./Dashboard.jsx"
-import QuizSetup from "./QuizSetup.jsx"
-import Quiz from "./Quiz.jsx"
+import Leaderboard from "./Leaderboard.jsx"
+import Quests from "./Quests.jsx"
+import Questpage from "./Questpage.jsx"
 import Results from "./Results.jsx"
 import storage from './utils/Storage.js'
 
@@ -12,10 +12,10 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/quizsetup" element={<QuizSetup />} />
-        <Route path="/quizsetup/quiz" element={<Quiz />} />
-        <Route path="/quizsetup/quiz/results" element={<Results />} />
+        <Route path="/leaderboard" element={<Leaderboard />} />
+        <Route path="/quests" element={<Quests />} />
+        <Route path="/quests/questpage" element={<Questpage />} />
+        <Route path="/quests/questpage/results" element={<Results />} />
       </Routes>
     </BrowserRouter>
   );

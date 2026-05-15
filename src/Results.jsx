@@ -1,11 +1,11 @@
 import React from 'react'
-import Nav2 from "./components/Nav2"
+import Nav from "./components/Nav"
 import Footer from "./components/Footer"
 
 const Results = () => {
   return (
     <>
-      <Nav2 />
+      <Nav />
       <main className="content">
 
       </main>
