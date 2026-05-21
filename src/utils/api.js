@@ -1,8 +1,5 @@
 const API_BASE = "https://opentdb.com/api.php";
 
-/** * Reusable decoder element to prevent creating 
- * thousands of DOM nodes during the mapping process.
- */
 const decoderElement = document.createElement("textarea");
 
 const decodeHTML = (text) => {
@@ -32,13 +29,12 @@ const decodeQuestions = (questions) => {
     const decodedIncorrect = q.incorrect_answers.map((ans) => decodeHTML(ans));
 
     return {
-      // crypto.randomUUID is built into modern browsers and safer than Math.random
       id: crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2, 11),
       question: decodeHTML(q.question),
       correctAnswer: decodedCorrect,
       options: shuffleArray([decodedCorrect, ...decodedIncorrect]),
       difficulty: q.difficulty,
-      category: q.category
+      category: decodeHTML(q.category)
     };
   });
 };
@@ -47,7 +43,7 @@ const decodeQuestions = (questions) => {
  * Main Fetch Function
  */
 const fetchQuestions = async (categoryId, difficulty, amount = 10) => {
-  // Use URLSearchParams to handle string formatting automatically
+  // Using URLSearchParams to handle string formatting automatically
   const params = new URLSearchParams({
     amount,
     category: categoryId,

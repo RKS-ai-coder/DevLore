@@ -4,7 +4,7 @@ function QuestLevel(props) {
   return(
     <div className="intensity-container">
       <div className="intensity-header">
-        <div className="intensity-icon">⚡</div>
+        <div className="intensity-icon"> @ </div>
         <div className="intensity-header-content">
           <h2>Intensity Selector</h2>
           <p>Choose your pace and challenge level.</p>
