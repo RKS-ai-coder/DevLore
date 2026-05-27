@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, createRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import Storage from './utils/Storage';
+
+// Reloading needs to be handled
 
 const Questpage = () => {
   const location = useLocation();
   const navigate = useNavigate();
   
-  // Get questions from state
   const questions = location.state?.questions || [];
 
   const [selectedOption, setSelectedOption] = useState({});
@@ -13,7 +15,6 @@ const Questpage = () => {
   const [timer, setTimer] = useState(600)
   const [isTimeUp, setIsTimeUp] = useState(false);
 
-  // If no questions, send back to selection
   useEffect(() => {
     if (questions.length === 0) {
       navigate("/quests");
@@ -47,6 +48,9 @@ const Questpage = () => {
   const handleSubmit = () => {
     let finalScore = 0;
 
+    let timeTaken = ((600-timer)/60).toFixed(2);
+    let attempted = Object.keys(selectedOption).length;
+
     questions.forEach((q, index) => {
       const userAnswer = selectedOption[index];
       if (userAnswer === q.correctAnswer) {
@@ -54,11 +58,35 @@ const Questpage = () => {
       }
     });
 
-    console.log("Selected Options:", selectedOption);
-    console.log("Score:", finalScore);
+    const currentResultData = {
+      score: finalScore,
+      totalQuestions: questions.length,
+      questions: questions,
+      timeStamp: timeTaken,
+      attempted: attempted,
+      selectedOption: selectedOption,
+      category: questions[0].category,
+      difficulty: questions[0].difficulty,
+      date: new Date().toLocaleDateString()
+    };
+
+    const history = Storage.get("quizHistory") || [];
+    history.push({
+      score: finalScore,
+      totalQuestions: questions.length,
+      timeTaken: timeTaken,
+      attempted: attempted,
+      category: currentResultData.category,
+      difficulty: currentResultData.difficulty,
+      date: currentResultData.date
+    });
+
+    Storage.set("latestQuizResult", currentResultData)
+
+    Storage.set("quizHistory", history);
 
     navigate("/quests/questpage/results", {
-      state: { score: finalScore, total: questions.length },
+      state: currentResultData 
     });
   };
 

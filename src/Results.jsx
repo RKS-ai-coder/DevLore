@@ -1,17 +1,62 @@
-import React from 'react'
-import Nav from "./components/Nav"
-import Footer from "./components/Footer"
+import React from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import ScoreCard from "./components/ScoreCard";
+import ResultDetails from "./components/ResultDetails"
+import QuickReview from "./components/QuickReview";
+import ResultPrizes from "./components/ResultPrizes";
+import Storage from './utils/Storage';
 
 const Results = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const resultData = location.state || Storage.get("latestQuizResult") || {};
+
+  const score = resultData.score ?? 0;
+  const questions = resultData.questions || [];
+  const timeStamp = resultData.timeStamp ?? "0.00";
+  const attempted = resultData.attempted ?? 0;
+  const selectedOption = resultData.selectedOption || {};
+
   return (
-    <>
-      <Nav />
-      <main className="content">
+    <main className="result-content">
+      
+        <ScoreCard 
+        score={score}
+        />
 
-      </main>
-      <Footer />
-    </>
-  )
-}
+        <div className="result-container-1">
+          <ResultDetails 
+          questions={questions}
+          score={score}
+          timeStamp={timeStamp}
+          attempted={attempted}
+          />
 
-export default Results
+          <ResultPrizes 
+          questions={questions}
+          score={score}
+          timeStamp={timeStamp}
+          attempted={attempted}
+          />
+        </div>
+
+        <QuickReview 
+          questions={questions}
+          selectedOption={selectedOption}
+        />
+
+
+      <div className="bottom-section">
+        <button className="try-another-quest" onClick={() => navigate("/quests")}>
+          Try Another Quest
+        </button>
+        <button className="return-to-dashboard" onClick={() => navigate("/")}>
+          Return to Dashboard
+        </button>
+      </div>
+    </main>
+  );
+};
+
+export default Results;

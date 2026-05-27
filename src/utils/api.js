@@ -8,9 +8,8 @@ const decodeHTML = (text) => {
   return decoderElement.value;
 };
 
-/**
- * Fisher-Yates shuffle algorithm to randomize answer order
- */
+// Fisher-Yates shuffle algorithm to randomize answer order
+
 const shuffleArray = (array) => {
   const shuffled = [...array];
   for (let i = shuffled.length - 1; i > 0; i--) {
@@ -20,9 +19,8 @@ const shuffleArray = (array) => {
   return shuffled;
 };
 
-/**
- * Processes raw API data into a clean, decoded format for the UI
- */
+// Processes raw API data into a clean, decoded format for the UI
+
 const decodeQuestions = (questions) => {
   return questions.map((q) => {
     const decodedCorrect = decodeHTML(q.correct_answer);
@@ -39,9 +37,8 @@ const decodeQuestions = (questions) => {
   });
 };
 
-/**
- * Main Fetch Function
- */
+// Main Fetch Function
+
 const fetchQuestions = async (categoryId, difficulty, amount = 10) => {
   // Using URLSearchParams to handle string formatting automatically
   const params = new URLSearchParams({
