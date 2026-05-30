@@ -1,10 +1,20 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import catImage from '../assets/cat.jpg';
+import Storage from '../utils/Storage.js';
 
 function Nav() {
 
   const location = useLocation();
+
+  const [username, setUsername] = useState('Profile');
+
+  useEffect(() => {
+    const currentUser = Storage.get("currentUser");
+    if (currentUser && currentUser.username) {
+      setUsername(currentUser.username);
+    }
+  }, []);
 
   return (
     <nav className="primary-nav">
@@ -35,7 +45,7 @@ function Nav() {
         </li>
       </ul>
       <div className="settings">
-        <div className="profile-name">rocks_d_rahul</div>
+        <div className="profile-name">{username}</div>
         <img src={catImage} alt="profile-pic" className="profile-pic" />
       </div>
     </nav>

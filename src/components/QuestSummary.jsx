@@ -2,17 +2,16 @@ import React from 'react'
 
 function QuestSummary(props) {
 
-  const categoryMap = {
+const categoryMap = {
   9: "General Knowledge",
-  17: "Science & Nature",
+  11: "Film" ,     
   18: "Computer Science",
   19: "Mathematics",
   21: "Sports",
   22: "Geography",
   23: "History",
   24: "Politics",
-  25: "Art",
-  27: "Animals"
+  31: "Anime & Manga"               
 };
 
   const categoryName = categoryMap[props.Category];
