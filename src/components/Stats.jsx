@@ -12,7 +12,11 @@ const Stats = () => {
   });
 
   useEffect(() => {
-    const history = Storage.get("quizHistory") || [];
+
+    const currentUser = Storage.get("currentUser");
+    const historyKey = currentUser ? `quizHistory_${currentUser.username.toLowerCase()}` : null;
+    
+    const history = Storage.get(historyKey) || [];
 
     if (history.length > 0) {
       const questsCompleted = history.length;
@@ -36,6 +40,12 @@ const Stats = () => {
         questsCompleted,
         averageScore,
         bestCategory
+      });
+    } else {
+      setStats({
+        questsCompleted: 0,
+        averageScore: '0.0',
+        bestCategory: 'None'
       });
     }
   }, []);

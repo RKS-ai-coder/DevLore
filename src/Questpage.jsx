@@ -2,8 +2,6 @@ import React, { useState, useEffect, createRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Storage from './utils/Storage';
 
-// Reloading needs to be handled
-
 const Questpage = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -70,6 +68,39 @@ const Questpage = () => {
       date: new Date().toLocaleDateString()
     };
 
+    const currentUser = Storage.get("currentUser");
+
+    const historyKey = currentUser ? `quizHistory_${currentUser.username.toLowerCase()}` : "quizHistory";
+
+    if (currentUser) {
+      const difficultyMap = { hard: 3, medium: 2, easy: 1 };
+      const multiplier = difficultyMap[questions[0].difficulty.toLowerCase()] || 1;
+      const gainedXp = finalScore * 10 * multiplier;
+
+      let totalXp = (currentUser.xp || 0) + gainedXp;
+      let level = currentUser.level || 1;
+      let xpRequired = level * 100;
+
+      while (totalXp >= xpRequired) {
+        totalXp -= xpRequired;
+        level += 1;
+        xpRequired = level * 100;
+      }
+
+      currentUser.xp = totalXp;
+      currentUser.level = level;
+      Storage.set("currentUser", currentUser); 
+
+      const allUsers = Storage.get("leaderboardUsers") || [];
+      const setUser = allUsers.map(user => {
+        if (user.username.toLowerCase() === currentUser.username.toLowerCase()) {
+          return { ...user, xp: totalXp, level: level };
+        }
+        return user;
+      });
+      Storage.set("leaderboardUsers", setUser);
+    }
+
     const history = Storage.get("quizHistory") || [];
     history.push({
       score: finalScore,
@@ -81,9 +112,10 @@ const Questpage = () => {
       date: currentResultData.date
     });
 
-    Storage.set("latestQuizResult", currentResultData)
+    const resultKey = currentUser ? `latestResult_${currentUser.username.toLowerCase()}` : null;
 
-    Storage.set("quizHistory", history);
+    Storage.set(resultKey, currentResultData);
+    Storage.set(historyKey, history);
 
     navigate("/quests/questpage/results", {
       state: currentResultData 

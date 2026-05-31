@@ -10,7 +10,10 @@ const Results = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const resultData = location.state || Storage.get("latestQuizResult") || {};
+  const currentUser = Storage.get("currentUser");
+  const fallbackKey = currentUser ? `latestResult_${currentUser.username.toLowerCase()}` : "latestQuizResult";
+
+  const resultData = location.state || Storage.get(fallbackKey) || {};
 
   const score = resultData.score ?? 0;
   const questions = resultData.questions || [];

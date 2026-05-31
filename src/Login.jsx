@@ -13,7 +13,6 @@ const handleLogin = (e) => {
   const cleanName = username.trim();
   const allUsers = Storage.get("leaderboardUsers") || [];
   
-  // Check if profile index matching already exists
   let userProfile = allUsers.find(u => u.username.toLowerCase() === cleanName.toLowerCase());
 
   if (!userProfile) {

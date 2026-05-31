@@ -5,7 +5,11 @@ function QuizHistoryTable() {
   const [bestQuizzes, setBestQuizzes] = useState([]);
 
   useEffect(() => {
-    const rawHistory = Storage.get("quizHistory") || [];
+    
+    const currentUser = Storage.get("currentUser");
+    const historyKey = currentUser ? `quizHistory_${currentUser.username.toLowerCase()}` : null;
+
+    const rawHistory = Storage.get(historyKey) || [];
 
     const difficultyWeights = { hard: 3, medium: 2, easy: 1 };
 
