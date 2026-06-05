@@ -13,8 +13,9 @@ const Home = () => {
 
   useEffect(() => {
     const userSession = Storage.get("currentUser");
+
     if (!userSession) {
-      navigate("/login")
+      navigate("/login");
     }
   }, [navigate]);
   

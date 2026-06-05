@@ -44,83 +44,84 @@ const Questpage = () => {
   };
 
   const handleSubmit = () => {
-    let finalScore = 0;
+  let finalScore = 0;
+  let timeTaken = ((600 - timer) / 60).toFixed(2);
+  let attempted = Object.keys(selectedOption).length;
 
-    let timeTaken = ((600-timer)/60).toFixed(2);
-    let attempted = Object.keys(selectedOption).length;
+  // Calculate the score results
+  questions.forEach((q, index) => {
+    const userAnswer = selectedOption[index];
+    if (userAnswer === q.correctAnswer) {
+      finalScore += 1;
+    }
+  });
 
-    questions.forEach((q, index) => {
-      const userAnswer = selectedOption[index];
-      if (userAnswer === q.correctAnswer) {
-        finalScore += 1;
-      }
-    });
+  const currentResultData = {
+    score: finalScore,
+    totalQuestions: questions.length,
+    questions: questions,
+    timeStamp: timeTaken,
+    attempted: attempted,
+    selectedOption: selectedOption,
+    category: questions[0]?.category || "General Knowledge",
+    difficulty: questions[0]?.difficulty || "medium",
+    date: new Date().toLocaleDateString()
+  };
 
-    const currentResultData = {
-      score: finalScore,
-      totalQuestions: questions.length,
-      questions: questions,
-      timeStamp: timeTaken,
-      attempted: attempted,
-      selectedOption: selectedOption,
-      category: questions[0].category,
-      difficulty: questions[0].difficulty,
-      date: new Date().toLocaleDateString()
-    };
+  const currentUser = Storage.get("currentUser");
 
-    const currentUser = Storage.get("currentUser");
+  const historyKey = currentUser ? `quizHistory_${currentUser.username.toLowerCase()}` : "quizHistory";
 
-    const historyKey = currentUser ? `quizHistory_${currentUser.username.toLowerCase()}` : "quizHistory";
+  if (currentUser) {
+    // Append quiz history data records to the isolated storage track
+    const existingHistory = Storage.get(historyKey) || [];
+    existingHistory.push(currentResultData);
+    Storage.set(historyKey, existingHistory);
 
-    if (currentUser) {
-      const difficultyMap = { hard: 3, medium: 2, easy: 1 };
-      const multiplier = difficultyMap[questions[0].difficulty.toLowerCase()] || 1;
-      const gainedXp = finalScore * 10 * multiplier;
+    // Compute Experience Point 
+    const difficultyMap = { hard: 3, medium: 2, easy: 1 };
+    const multiplier = difficultyMap[currentResultData.difficulty.toLowerCase()] || 1;
+    const gainedXp = finalScore * 10 * multiplier;
 
-      let totalXp = (currentUser.xp || 0) + gainedXp;
-      let level = currentUser.level || 1;
-      let xpRequired = level * 100;
+    let totalXp = (currentUser.xp || 0) + gainedXp;
+    let level = currentUser.level || 1;
+    let xpRequired = level * 100;
 
-      while (totalXp >= xpRequired) {
-        totalXp -= xpRequired;
-        level += 1;
-        xpRequired = level * 100;
-      }
-
-      currentUser.xp = totalXp;
-      currentUser.level = level;
-      Storage.set("currentUser", currentUser); 
-
-      const allUsers = Storage.get("leaderboardUsers") || [];
-      const setUser = allUsers.map(user => {
-        if (user.username.toLowerCase() === currentUser.username.toLowerCase()) {
-          return { ...user, xp: totalXp, level: level };
-        }
-        return user;
-      });
-      Storage.set("leaderboardUsers", setUser);
+    // Handle leveling 
+    while (totalXp >= xpRequired) {
+      totalXp -= xpRequired;
+      level += 1;
+      xpRequired = level * 100;
     }
 
-    const history = Storage.get("quizHistory") || [];
-    history.push({
-      score: finalScore,
-      totalQuestions: questions.length,
-      timeTaken: timeTaken,
-      attempted: attempted,
-      category: currentResultData.category,
-      difficulty: currentResultData.difficulty,
-      date: currentResultData.date
-    });
+    currentUser.xp = totalXp;
+    currentUser.level = level;
+    Storage.set("currentUser", currentUser); 
 
-    const resultKey = currentUser ? `latestResult_${currentUser.username.toLowerCase()}` : null;
+    const allUsers = Storage.get("leaderboardUsers") || [];
+    const userIndex = allUsers.findIndex(u => u.username.toLowerCase() === currentUser.username.toLowerCase());
+    
+    if (userIndex !== -1) {
+      allUsers[userIndex].xp = totalXp;
+      allUsers[userIndex].level = level;
+      Storage.set("leaderboardUsers", allUsers);
+    }
+  } else {
+    const defaultHistory = Storage.get("quizHistory") || [];
+    defaultHistory.push(currentResultData);
+    Storage.set("quizHistory", defaultHistory);
+  } 
 
-    Storage.set(resultKey, currentResultData);
-    Storage.set(historyKey, history);
+  // Save latest quiz result to match individual path identifiers 
+  const fallbackKey = currentUser ? `latestResult_${currentUser.username.toLowerCase()}` : "latestQuizResult";
+  Storage.set(fallbackKey, currentResultData);
 
-    navigate("/quests/questpage/results", {
-      state: currentResultData 
-    });
-  };
+  // Navigate to results page with state data
+  navigate("/quests/questpage/results", {
+    state: currentResultData 
+  });
+};
+
 
   useEffect(() => {
     const timeInterval = setInterval(() => {

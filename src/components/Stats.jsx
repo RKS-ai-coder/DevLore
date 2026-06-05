@@ -5,6 +5,7 @@ import average from '../assets/average.png';
 import quest from '../assets/quest.png';
 
 const Stats = () => {
+  const [playerInfo, setPlayerInfo] = useState({ level: 1, xp: 0 });
   const [stats, setStats] = useState({
     questsCompleted: 0,
     averageScore: '0.0',
@@ -14,8 +15,15 @@ const Stats = () => {
   useEffect(() => {
 
     const currentUser = Storage.get("currentUser");
+
+    if (currentUser) {
+      setPlayerInfo({
+        level: currentUser.level || 1,
+        xp: currentUser.xp || 0
+      });
+    }
+
     const historyKey = currentUser ? `quizHistory_${currentUser.username.toLowerCase()}` : null;
-    
     const history = Storage.get(historyKey) || [];
 
     if (history.length > 0) {
@@ -34,7 +42,7 @@ const Stats = () => {
         const timeB = new Date(b.timestamp || b.date).getTime();
         return timeB - timeA;
       });
-      const bestCategory = sortedQuizzes[0].category;
+      const bestCategory = sortedQuizzes[0]?.category || 'None';
 
       setStats({
         questsCompleted,
@@ -52,7 +60,15 @@ const Stats = () => {
 
   return (
     <div className="stats-container">
-      <h1 className="stats-main-heading">Dashboard</h1>
+      <h1 className="stats-main-heading">
+        Your Stats
+      </h1>
+
+      <div className="player-info">
+        <p>Level: {playerInfo.level}</p>
+        <p>XP: {playerInfo.xp}</p>
+      </div>
+
       <div className="stats-flex">
         <div className="stats-card">
           <div className="stat-header">
@@ -70,9 +86,9 @@ const Stats = () => {
           <p>{stats.averageScore}/10</p>
         </div>
 
-        <div className="stats-card i3">
+        <div className="stats-card">
           <div className="stat-header">
-            <div className="stat-icon"><img src={category} alt="Category Icon" className="stat-img-asset" /></div>
+            <div className="stat-icon i3"><img src={category} alt="Category Icon" className="stat-img-asset" /></div>
             <h4>Best Category</h4>
           </div>
           <p>{stats.bestCategory}</p>

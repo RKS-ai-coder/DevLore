@@ -10,15 +10,28 @@ import trophy from './assets/trophy.png';
 const Leaderboard = () => {
   const [rankings, setRankings] = useState([]);
 
-  useEffect(() => {
+  const loadAndRankUsers = () => {
     const records = Storage.get("leaderboardUsers") || [];
-
     const sorted = [...records].sort((a, b) => {
       if (b.level !== a.level) return b.level - a.level;
       return b.xp - a.xp;
     });
-
     setRankings(sorted);
+  };
+
+  useEffect(() => {
+
+    loadAndRankUsers();
+
+    // Automatically reloads the leaderboard if another tab updates the "leaderboardUsers" key in localStorage
+    const handleStorageChange = (e) => {
+      if (e.key === "leaderboardUsers") {
+        loadAndRankUsers();
+      }
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+    return () => window.removeEventListener("storage", handleStorageChange)
   }, []);
 
   return (

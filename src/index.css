@@ -64,7 +64,7 @@ body {
   justify-content: space-around;
   align-items: center;
   gap: 10px;
-  font-size: 16px;
+  font-size: 18px;
   color: #4e4e4e;
 }
 
@@ -79,6 +79,16 @@ body {
 
 .profile-pic:hover {
   background-color: #4e4e4e;
+}
+
+.settings .logout-button {
+  font-size: 14px;
+  padding: 6px 14px;
+  border-radius: 8px;
+  background: #f3f0ff;
+  color: #6e3afd;
+  border: 2px solid #e5dbff;
+  transition: all 0.2s ease;
 }
 /* NAV ENDS */
 
@@ -1096,6 +1106,20 @@ Header {
   padding: 0px 20px;
   line-height: 1.2;
   padding-bottom: 10px;
+}
+
+.player-info {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 300px;
+  font-size: 1.4rem;
+  padding: 15px;
+  background: #ffffff;
+  border-radius: 6px;
+  border-left: 10px solid #a34cfb;
+  box-shadow: 0 10px 25px rgba(98, 71, 170, 0.05);
+  margin-bottom: 20px;
 }
 
 .history-table{

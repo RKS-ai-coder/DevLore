@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import catImage from '../assets/cat.jpg';
 import Storage from '../utils/Storage.js';
 
 function Nav() {
 
   const location = useLocation();
+  const navigate = useNavigate();
 
   const [username, setUsername] = useState('Profile');
 
@@ -15,6 +16,12 @@ function Nav() {
       setUsername(currentUser.username);
     }
   }, []);
+
+  const handleLogout = () => {
+    Storage.set("currentUser", null);
+    navigate("/login");
+    window.location.reload(); 
+  };
 
   return (
     <nav className="primary-nav">
@@ -47,6 +54,10 @@ function Nav() {
       <div className="settings">
         <div className="profile-name">{username}</div>
         <img src={catImage} alt="profile-pic" className="profile-pic" />
+        <button 
+          className="logout-button" 
+          onClick={handleLogout}
+        >Logout</button>
       </div>
     </nav>
   );

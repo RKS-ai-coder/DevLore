@@ -50,7 +50,7 @@ function QuizHistoryTable() {
               <th>Difficulty</th>
               <th>Score</th>
               <th>Accuracy</th>
-              <th>Time Taken</th>
+              <th>Time Stamp</th>
               <th>Date</th>
             </tr>
           </thead>
@@ -71,7 +71,7 @@ function QuizHistoryTable() {
                       <span className="accuracy-text">{accuracy}%</span>
                     </div>
                   </td>
-                  <td>{quiz.timeTaken} mins</td>
+                  <td>{quiz.timeStamp} mins</td>
                   <td className="date-col">{quiz.date}</td>
                 </tr>
               );

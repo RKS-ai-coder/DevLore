@@ -37,13 +37,18 @@ function ResultDetails(props) {
       </div>
       <hr />
       <div className="result-summary-list">
-        <div className="result-key">Skipped</div>
-        <div className="result-value">{10 - props.attempted}</div>
+        <div className="result-key">Score</div>
+        <div className="result-value">{props.score}</div>
       </div>
       <hr />
       <div className="result-summary-list">
-        <div className="result-key">Score</div>
-        <div className="result-value">{props.score}</div>
+        <div className="result-key">XP</div>
+        <div className="result-value">{props.xp}</div>
+      </div>
+      <hr />
+      <div className="result-summary-list">
+        <div className="result-key">Level</div>
+        <div className="result-value">{props.level}</div>
       </div>
     </div>
   )
