@@ -81,7 +81,6 @@ const Leaderboard = () => {
           </div>
         </div>
       </main>
-      <Footer />
     </>
   );
 };
